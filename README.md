@@ -1,5 +1,5 @@
 # FKFB-preview
-Fecebook has blocked *ALL* news postings and comments in Canada due to the govt of . This script is a proxy to pre-cache target news pages and provide header content for FB to parse for preview.
+Fecebook has blocked *ALL* news postings and comments in Canada due to the govt of Canada's bill C18 <https://www.justice.gc.ca/eng/csj-sjc/pl/charter-charte/c18_1.html> requiring online providers to recompense news producers for links. This script is a proxy to pre-cache target news pages and provide header content for FB to parse for preview.
 
 This is my first git repo to get this project moving for a few necessary improvements.
 
