@@ -16,12 +16,21 @@ $urls = array(
 	      );
 
 // honor GET requests but otherwise just choose (and return) a random news site URL
-if ($_SERVER['REQUEST_METHOD'] == "GET" and $_SERVER['QUERY_STRING']) {
-    // requests are sometimes sent as urlencoded-strings with a stupid FB
-    // client tracker ID tacked on as a query string, so decode as needed and
-    // discard the tracker ID
-    $url = explode('&', urldecode($_SERVER['QUERY_STRING']))[0];
-    if ($url == "" or !preg_match('/^http/', $url)) {
+if ($_SERVER['REQUEST_METHOD'] == "GET") {
+    if ($_SERVER['QUERY_STRING']) {
+	// requests are sometimes sent as urlencoded-strings with a stupid FB
+	// client tracker ID tacked on as a query string, so decode as needed and
+	// discard the tracker ID
+	try {
+	    $url = explode('&', urldecode($_SERVER['QUERY_STRING']))[0];
+	} catch (Exception $e) {
+	    echo "Failed to parse request: $e";
+	}
+	if ($url == "" or !preg_match('/^http/', $url)) {
+	    $array_key = array_rand($urls, 1);
+	    $url = $urls[$array_key];
+	}
+    } else {
 	$array_key = array_rand($urls, 1);
 	$url = $urls[$array_key];
     }
