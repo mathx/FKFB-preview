@@ -30,6 +30,9 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 	    $array_key = array_rand($urls, 1);
 	    $url = $urls[$array_key];
 	}
+	if (preg_match('/=$/', $url)) {
+	    $url = rtrim($url, '=');
+	}
     } else {
 	$array_key = array_rand($urls, 1);
 	$url = $urls[$array_key];
@@ -145,8 +148,11 @@ function parseToArray($xpath, $elem1, $elem2) {
 
 // helper function to make array key names PHP-safe
 function replaceArrayKeys($array) {
-    $replacedKeys = str_replace(':', '_', array_keys($array));
-    return array_combine($replacedKeys, $array);
+    if (gettype($array) == "array") {
+	$replacedKeys = str_replace(':', '_', array_keys($array));
+	return array_combine($replacedKeys, $array);
+    }
+    return $array;
 }
 
 ?>
